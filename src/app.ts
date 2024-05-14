@@ -15,6 +15,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", routes);
+app.set("view engine", "html");
 
 let server: Server;
 

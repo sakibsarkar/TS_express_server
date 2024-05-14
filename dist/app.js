@@ -24,6 +24,7 @@ app.get("/", (req, res) => {
     res.send("Hello from server");
 });
 app.use("/api", routes_1.default);
+app.set("view engine", "html");
 let server;
 const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
     server = app.listen(port, () => {

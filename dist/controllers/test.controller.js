@@ -8,9 +8,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.testController = void 0;
+exports.getTestData = exports.testController = void 0;
+const fs_1 = __importDefault(require("fs"));
 const testController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     res.send("Hello tester");
 });
 exports.testController = testController;
+const getTestData = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const readStream = fs_1.default.createReadStream(process.cwd() + "/data/index.html");
+    readStream.pipe(res);
+    readStream.on("error", (err) => {
+        console.error("Error reading file:", err);
+        res.status(500).send("Internal Server Error");
+    });
+    readStream.on("end", () => {
+        console.log("Streaming finished");
+    });
+});
+exports.getTestData = getTestData;
